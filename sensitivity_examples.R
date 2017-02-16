@@ -138,13 +138,13 @@ for(i in 1:ncol(X_oaat)){
        xlab = colnames(X)[i]
   )
   
-  col.transp <- adjustcolor('black', alpha = 0.4)
+  col.transp = adjustcolor('black', alpha = 0.4)
   polygon(x = c(X_oaat[ix, i], rev(X_oaat[ix, i])),
           y =c(pred_amazon_oaat$lower95[ix], rev(pred_amazon_oaat$upper95[ix])),
           col = col.transp, border = col.transp
   )
   
-  col.transp <- adjustcolor('darkgreen', alpha = 0.4)
+  col.transp = adjustcolor('darkgreen', alpha = 0.4)
   points(X_oaat[ix, i], pred_congo_oaat$mean[ix], ylim = c(0, 1), bty = 'n',
        ylab = '', type = 'l', lwd = 2,
        xlab = colnames(X)[i],
