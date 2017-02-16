@@ -6,8 +6,7 @@
 # 0. load data and packages
 # -----------------------------------------------------------
 
-library(DiceKriging)
-library(sensitivity)
+library(DiceKriging) # emulator package
 
 # Load the forest fraction data from the climate model FAMOUS
 giturl = 'https://github.com/dougmcneall/famous-git/raw/master/famous_forest_fraction.RData'
@@ -100,9 +99,9 @@ pred_amazon_oaat = predict(fit_amazon, newdata = X_oaat, type = 'UK')
 # question is varied.
 
 pdf(file = 'oat_amazon.pdf', width = 8, height = 6)
-par(mfrow = c(2,4), las = 1, mar = c(5,3,2,1), oma = c(0.1,3,0.1,0.1) )
+par(mfrow = c(2,4), las = 1, mar = c(5,3,2,1), oma = c(0.1,3,0.1,0.1))
+
 for(i in 1:ncol(X_oaat)){
-  
   # just the points where the parameter varies
   ix <- seq(from = ((i*n) - (n-1)), to =  (i*n), by = 1)
   plot(X_oaat[ix, i], pred_amazon_oaat$mean[ix], ylim = c(0, 1), bty = 'n',
@@ -127,34 +126,29 @@ pred_congo_oaat = predict(fit_congo, newdata = X_oaat, type = 'UK')
 
 pdf(file = 'oat_compare.pdf', width = 8, height = 6)
 par(mfrow = c(2,4), las = 1, mar = c(5,3,2,1), oma = c(0.1,3,0.1,0.1) )
+
 for(i in 1:ncol(X_oaat)){
-  
   # just the points where the parameter varies
   ix <- seq(from = ((i*n) - (n-1)), to =  (i*n), by = 1)
   
-  
   plot(X_oaat[ix, i], pred_amazon_oaat$mean[ix], ylim = c(0, 1), bty = 'n',
        ylab = '', type = 'l', lwd = 2,
-       xlab = colnames(X)[i]
-  )
+       xlab = colnames(X)[i])
   
   col.transp = adjustcolor('black', alpha = 0.4)
   polygon(x = c(X_oaat[ix, i], rev(X_oaat[ix, i])),
           y =c(pred_amazon_oaat$lower95[ix], rev(pred_amazon_oaat$upper95[ix])),
-          col = col.transp, border = col.transp
-  )
+          col = col.transp, border = col.transp)
   
   col.transp = adjustcolor('darkgreen', alpha = 0.4)
   points(X_oaat[ix, i], pred_congo_oaat$mean[ix], ylim = c(0, 1), bty = 'n',
        ylab = '', type = 'l', lwd = 2,
        xlab = colnames(X)[i],
-       col = 'darkgreen'
-  )
+       col = 'darkgreen')
   
   polygon(x = c(X_oaat[ix, i], rev(X_oaat[ix, i])),
           y =c(pred_congo_oaat$lower95[ix], rev(pred_congo_oaat$upper95[ix])),
-          col = col.transp, border = col.transp
-  )
+          col = col.transp, border = col.transp)
 }
 legend('top', legend = c('Amazon', 'Congo'), col = c('black','darkgreen'),
        lty = 'solid', lwd = 1, pch = NA, bty = 'n',
