@@ -154,6 +154,6 @@ legend('top', legend = c('Amazon', 'Congo'), col = c('black','darkgreen'),
        lty = 'solid', lwd = 1, pch = NA, bty = 'n',
        text.col = 'black', 
        fill = adjustcolor(c('black', 'darkgreen'), alpha = 0.4), border = NA, cex = 1.2)
-mtext('Amazon forest fraction', side = 2, line = 1, col = 'black', outer = TRUE, las = 0)
+mtext('Forest fraction', side = 2, line = 1, col = 'black', outer = TRUE, las = 0)
 dev.off()
 
